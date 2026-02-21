@@ -41,10 +41,15 @@ const FinalCTA = () => {
           viewport={{ once: true }}
           transition={{ delay: 0.4 }}
         >
-          <button className="cta-button text-xl inline-flex items-center gap-3">
+          <a
+            href="https://wa.me/201007292223?text=I%20want%20to%20start%20my%20AI%20Growth%20Plan%20with%20Ai%20Solutions"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="cta-button text-xl inline-flex items-center gap-3"
+          >
             <Rocket className="w-6 h-6" />
-            Build My AI Growth Engine
-          </button>
+            Start Your AI Growth Plan Now
+          </a>
         </motion.div>
       </div>
     </section>
