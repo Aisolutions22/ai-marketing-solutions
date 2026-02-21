@@ -36,12 +36,12 @@ const Index = () => {
 
       {/* Footer */}
       <footer className="glass-strong border-t border-glass-border py-8 text-center">
-        <p className="text-muted-foreground text-sm">
-          © 2026 <span className="font-display text-primary">Ai Solutions</span> — AI Marketing & Automation
+        <p className="text-muted-foreground text-sm">© 2026 Ai Solutions — AI N8N Automation
+          <span className="font-display text-primary">Ai Solutions</span> — AI Marketing & Automation
         </p>
       </footer>
-    </div>
-  );
+    </div>);
+
 };
 
 export default Index;
