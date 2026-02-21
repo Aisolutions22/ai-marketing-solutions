@@ -1,21 +1,22 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { ShoppingCart, Store, Globe, Layout, Facebook, Search, Ghost, Bell, Workflow, Linkedin, Twitter, Mail, MessageSquare, MapPin, Clock, DollarSign, Zap } from "lucide-react";
+import { ShoppingCart, Store, Globe, Layout, Facebook, Search, Ghost, Bell, Workflow, Linkedin, Twitter, Mail, MessageSquare, MapPin, Clock, DollarSign, Zap, Brain } from "lucide-react";
 
 const workflowSteps = [
-  { name: "Shopify", icon: ShoppingCart },
-  { name: "WooCommerce", icon: Store },
-  { name: "WordPress", icon: Globe },
-  { name: "Website & Landing Page", icon: Layout },
-  { name: "Meta Ads", icon: Facebook },
-  { name: "Google Ads", icon: Search },
-  { name: "Snapchat Ads", icon: Ghost },
-  { name: "Slack", icon: Bell },
-  { name: "n8n", icon: Workflow },
-  { name: "LinkedIn Ads", icon: Linkedin },
-  { name: "X Ads", icon: Twitter },
-  { name: "Email", icon: Mail },
-  { name: "WhatsApp", icon: MessageSquare },
-  { name: "Geo", icon: MapPin },
+  { name: "Shopify", icon: ShoppingCart, kpi: "Orders Synced" },
+  { name: "WooCommerce", icon: Store, kpi: "Products Managed" },
+  { name: "WordPress", icon: Globe, kpi: "Content Published" },
+  { name: "Website & LP", icon: Layout, kpi: "Pages Optimized" },
+  { name: "Meta Ads", icon: Facebook, kpi: "ROAS Tracked" },
+  { name: "Google Ads", icon: Search, kpi: "CPC Optimized" },
+  { name: "Snapchat Ads", icon: Ghost, kpi: "Reach Scaled" },
+  { name: "Slack", icon: Bell, kpi: "Alerts Sent" },
+  { name: "n8n", icon: Workflow, kpi: "Flows Active" },
+  { name: "LinkedIn Ads", icon: Linkedin, kpi: "B2B Leads" },
+  { name: "X Ads", icon: Twitter, kpi: "Impressions" },
+  { name: "Email", icon: Mail, kpi: "Open Rate" },
+  { name: "WhatsApp", icon: MessageSquare, kpi: "Messages Sent" },
+  { name: "Geo", icon: MapPin, kpi: "Zones Targeted" },
 ];
 
 const triggers = [
@@ -35,6 +36,12 @@ const highlights = [
 ];
 
 const N8NAutomation = () => {
+  const [hoveredNode, setHoveredNode] = useState<number | null>(null);
+
+  const radius = 280;
+  const mobileRadius = 160;
+  const centerSize = 100;
+
   return (
     <section className="relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-background via-accent/3 to-background" />
@@ -49,27 +56,115 @@ const N8NAutomation = () => {
           <p className="section-subtitle">Every channel, every platform — seamlessly connected through intelligent AI automation that runs your entire business on autopilot</p>
         </motion.div>
 
-        {/* Workflow Pipeline */}
-        <div className="flex flex-wrap justify-center items-center gap-2 md:gap-0 mb-16">
+        {/* Circular Radial Layout - Desktop */}
+        <div className="relative mx-auto mb-16 hidden md:block" style={{ height: 700, maxWidth: 700 }}>
+          {/* SVG Connection Lines */}
+          <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 700 700">
+            {workflowSteps.map((_, i) => {
+              const angle = (i / workflowSteps.length) * 2 * Math.PI - Math.PI / 2;
+              const x = 350 + radius * Math.cos(angle);
+              const y = 350 + radius * Math.sin(angle);
+              return (
+                <motion.line
+                  key={i}
+                  x1={350} y1={350}
+                  x2={x} y2={y}
+                  stroke={hoveredNode === i ? "hsl(217 91% 60%)" : "hsl(217 91% 60% / 0.2)"}
+                  strokeWidth={hoveredNode === i ? 2 : 1}
+                  strokeDasharray={hoveredNode === i ? "0" : "6 4"}
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  whileInView={{ pathLength: 1, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.08, duration: 0.5 }}
+                />
+              );
+            })}
+            {/* Outer ring */}
+            <circle cx={350} cy={350} r={radius} fill="none" stroke="hsl(217 91% 60% / 0.08)" strokeWidth={1} />
+          </svg>
+
+          {/* Central Hub */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.5 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, type: "spring" }}
+            className="absolute z-20 flex flex-col items-center justify-center rounded-full glass-strong neon-glow-purple"
+            style={{
+              width: centerSize,
+              height: centerSize,
+              left: 350 - centerSize / 2,
+              top: 350 - centerSize / 2,
+            }}
+          >
+            <Brain className="w-10 h-10 text-accent mb-1" />
+            <span className="font-display text-[8px] text-foreground leading-tight text-center">AI Marketing<br />Agent</span>
+          </motion.div>
+
+          {/* Tool Nodes in Circle */}
+          {workflowSteps.map((step, i) => {
+            const angle = (i / workflowSteps.length) * 2 * Math.PI - Math.PI / 2;
+            const x = 350 + radius * Math.cos(angle);
+            const y = 350 + radius * Math.sin(angle);
+            const isHovered = hoveredNode === i;
+
+            return (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, scale: 0 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08, type: "spring", stiffness: 200 }}
+                className="absolute z-10 flex flex-col items-center"
+                style={{
+                  left: x - 40,
+                  top: y - 40,
+                  width: 80,
+                }}
+                onMouseEnter={() => setHoveredNode(i)}
+                onMouseLeave={() => setHoveredNode(null)}
+              >
+                <div
+                  className={`w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer border-2 ${
+                    isHovered
+                      ? "bg-primary/20 border-primary neon-glow-blue scale-110"
+                      : "bg-primary/10 border-primary/30"
+                  }`}
+                >
+                  <step.icon className={`w-6 h-6 transition-colors duration-300 ${isHovered ? "text-primary" : "text-primary/70"}`} />
+                </div>
+                <span className={`font-display text-[9px] mt-1.5 text-center leading-tight transition-colors duration-300 ${isHovered ? "text-foreground" : "text-muted-foreground"}`}>
+                  {step.name}
+                </span>
+                {isHovered && (
+                  <motion.span
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="text-[8px] text-primary font-display mt-0.5"
+                  >
+                    {step.kpi}
+                  </motion.span>
+                )}
+              </motion.div>
+            );
+          })}
+        </div>
+
+        {/* Mobile fallback: simple grid */}
+        <div className="md:hidden flex flex-wrap justify-center gap-3 mb-16">
           {workflowSteps.map((step, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="flex items-center"
+              transition={{ delay: i * 0.05 }}
+              className="flex flex-col items-center gap-1"
             >
-              <div className="glass p-4 rounded-xl flex flex-col items-center gap-2 min-w-[80px] hover:neon-glow-blue transition-all duration-300">
-                <step.icon className="w-6 h-6 text-primary" />
-                <span className="text-xs font-display text-muted-foreground">{step.name}</span>
+              <div className="w-12 h-12 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center">
+                <step.icon className="w-5 h-5 text-primary/70" />
               </div>
-              {i < workflowSteps.length - 1 && (
-                <div className="hidden md:flex items-center px-2">
-                  <div className="w-8 h-0.5 bg-gradient-to-r from-primary to-accent animate-pulse-neon" />
-                  <div className="w-0 h-0 border-t-4 border-b-4 border-l-6 border-transparent border-l-primary" />
-                </div>
-              )}
+              <span className="text-[8px] font-display text-muted-foreground text-center">{step.name}</span>
             </motion.div>
           ))}
         </div>
