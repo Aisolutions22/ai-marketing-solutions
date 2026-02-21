@@ -1,24 +1,25 @@
 import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
-import { Calculator } from "lucide-react";
+import { Calculator, Send } from "lucide-react";
 
 const FinancialImpact = () => {
   const [adSpend, setAdSpend] = useState(10000);
   const [conversionRate, setConversionRate] = useState(2);
   const [cac, setCac] = useState(5);
   const [retentionRate, setRetentionRate] = useState(20);
+  const [aov, setAov] = useState(50);
+  const [biggestChallenge, setBiggestChallenge] = useState("");
 
   const results = useMemo(() => {
     const customers = (adSpend / cac);
-    const traditionalRevenue = customers * 50;
+    const traditionalRevenue = customers * aov;
     const traditionalProfit = traditionalRevenue - adSpend;
     const traditionalROI = ((traditionalProfit / adSpend) * 100);
 
-    // AI model: better CR (2x), lower CAC (60%), higher retention, higher LTV
     const aiCac = cac * 0.4;
     const aiCR = conversionRate * 2;
     const aiCustomers = (adSpend / aiCac);
-    const aiLTV = 50 * (1 + (retentionRate * 3) / 100);
+    const aiLTV = aov * (1 + (retentionRate * 3) / 100);
     const aiRevenue = aiCustomers * aiLTV;
     const aiProfit = aiRevenue - adSpend;
     const aiROI = ((aiProfit / adSpend) * 100);
@@ -27,7 +28,7 @@ const FinancialImpact = () => {
       traditional: { revenue: traditionalRevenue, profit: traditionalProfit, roi: traditionalROI },
       ai: { revenue: aiRevenue, profit: aiProfit, roi: aiROI },
     };
-  }, [adSpend, conversionRate, cac, retentionRate]);
+  }, [adSpend, conversionRate, cac, retentionRate, aov]);
 
   const fmt = (n: number) => `$${Math.round(n).toLocaleString()}`;
 
@@ -64,6 +65,7 @@ const FinancialImpact = () => {
                 { label: "Current Conversion Rate", value: conversionRate, set: setConversionRate, min: 0.5, max: 10, step: 0.5, format: (v: number) => `${v}%` },
                 { label: "Current CAC", value: cac, set: setCac, min: 1, max: 50, step: 1, format: (v: number) => `$${v}` },
                 { label: "Retention Rate", value: retentionRate, set: setRetentionRate, min: 5, max: 80, step: 5, format: (v: number) => `${v}%` },
+                { label: "Average Order Value (AOV)", value: aov, set: setAov, min: 10, max: 500, step: 5, format: (v: number) => `$${v}` },
               ].map((input, i) => (
                 <div key={i}>
                   <div className="flex justify-between mb-2">
@@ -81,6 +83,41 @@ const FinancialImpact = () => {
                   />
                 </div>
               ))}
+
+              <div>
+                <label className="text-sm text-muted-foreground block mb-2">Biggest Challenge</label>
+                <textarea
+                  value={biggestChallenge}
+                  onChange={(e) => setBiggestChallenge(e.target.value.slice(0, 500))}
+                  placeholder="e.g. High CAC, low retention, scaling issues..."
+                  className="w-full h-20 rounded-lg border border-input bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring resize-none"
+                />
+              </div>
+
+              <button
+                onClick={() => {
+                  const lines = [
+                    "New AI Growth Assessment:",
+                    "",
+                    `Monthly Ad Spend: $${adSpend.toLocaleString()}`,
+                    `Conversion Rate: ${conversionRate}%`,
+                    `CAC: $${cac}`,
+                    `Retention Rate: ${retentionRate}%`,
+                    `AOV: $${aov}`,
+                    `Biggest Challenge: ${biggestChallenge || "Not specified"}`,
+                    "",
+                    `Traditional ROI: ${Math.round(results.traditional.roi)}%`,
+                    `AI Model ROI: ${Math.round(results.ai.roi)}%`,
+                    `Additional Profit with AI: +$${Math.round(results.ai.profit - results.traditional.profit).toLocaleString()}/mo`,
+                  ];
+                  const text = encodeURIComponent(lines.join("\n"));
+                  window.open(`https://wa.me/201007292223?text=${text}`, "_blank");
+                }}
+                className="cta-button w-full inline-flex items-center justify-center gap-2 text-base"
+              >
+                <Send className="w-5 h-5" />
+                Submit Growth Assessment
+              </button>
             </div>
           </motion.div>
 
