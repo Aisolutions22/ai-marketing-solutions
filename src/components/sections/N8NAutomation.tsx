@@ -1,24 +1,31 @@
 import { motion } from "framer-motion";
-import { ShoppingCart, Workflow, Database, MessageSquare, Megaphone, LayoutDashboard, Bell, Clock, DollarSign, Zap } from "lucide-react";
+import { ShoppingCart, Store, Globe, Layout, Facebook, Search, Ghost, Bell, Workflow, Linkedin, Twitter, Mail, MessageSquare, MapPin, Clock, DollarSign, Zap } from "lucide-react";
 
 const workflowSteps = [
   { name: "Shopify", icon: ShoppingCart },
-  { name: "n8n", icon: Workflow },
-  { name: "CRM", icon: Database },
-  { name: "WhatsApp", icon: MessageSquare },
-  { name: "Ads", icon: Megaphone },
-  { name: "Dashboard", icon: LayoutDashboard },
+  { name: "WooCommerce", icon: Store },
+  { name: "WordPress", icon: Globe },
+  { name: "Website & Landing Page", icon: Layout },
+  { name: "Meta Ads", icon: Facebook },
+  { name: "Google Ads", icon: Search },
+  { name: "Snapchat Ads", icon: Ghost },
   { name: "Slack", icon: Bell },
+  { name: "n8n", icon: Workflow },
+  { name: "LinkedIn Ads", icon: Linkedin },
+  { name: "X Ads", icon: Twitter },
+  { name: "Email", icon: Mail },
+  { name: "WhatsApp", icon: MessageSquare },
+  { name: "Geo", icon: MapPin },
 ];
 
 const triggers = [
-  "Update LTV",
-  "Add to Retention Flow",
-  "Trigger Upsell Offer",
-  "Update Custom Audience",
-  "Notify Sales Team",
-  "Recalculate ROI",
-  "Generate Insight Report",
+  "Sync orders across all platforms",
+  "Launch targeted ad campaigns instantly",
+  "Trigger personalized email & WhatsApp flows",
+  "Update audiences across Meta, Google & Snapchat",
+  "Notify your team on Slack in real time",
+  "Optimize geo-targeted campaigns automatically",
+  "Generate unified performance reports",
 ];
 
 const highlights = [
@@ -39,7 +46,7 @@ const N8NAutomation = () => {
           className="text-center mb-16"
         >
           <h2 className="section-title">N8N Automation Engine</h2>
-          <p className="section-subtitle">Fully automated workflows connecting every part of your business</p>
+          <p className="section-subtitle">Every channel, every platform — seamlessly connected through intelligent AI automation that runs your entire business on autopilot</p>
         </motion.div>
 
         {/* Workflow Pipeline */}
@@ -76,7 +83,7 @@ const N8NAutomation = () => {
         >
           <div className="flex items-center gap-3 mb-6">
             <div className="w-3 h-3 rounded-full bg-primary animate-pulse-neon" />
-            <h3 className="font-display text-lg text-foreground">When Purchase Happens →</h3>
+            <h3 className="font-display text-lg text-foreground">When a Customer Engages →</h3>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {triggers.map((trigger, i) => (
