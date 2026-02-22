@@ -1,6 +1,47 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { motion } from "framer-motion";
 import { Calculator, Send } from "lucide-react";
+
+const MAX_CHALLENGE_LENGTH = 500;
+const ALLOWED_CHARS_REGEX = /[^a-zA-Z0-9\s.,!?;:'\-()%$@#&+=/\n]/g;
+
+const sanitizeInput = (input: string): string => {
+  return input
+    .replace(ALLOWED_CHARS_REGEX, '')
+    .slice(0, MAX_CHALLENGE_LENGTH)
+    .trim();
+};
+
+const buildWhatsAppUrl = (params: {
+  adSpend: number; conversionRate: number; cac: number;
+  retentionRate: number; aov: number; challenge: string;
+  traditionalRoi: number; aiRoi: number; additionalProfit: number;
+}): string | null => {
+  const sanitized = sanitizeInput(params.challenge);
+  const lines = [
+    "New AI Growth Assessment:",
+    "",
+    `Monthly Ad Spend: $${params.adSpend.toLocaleString()}`,
+    `Conversion Rate: ${params.conversionRate}%`,
+    `CAC: $${params.cac}`,
+    `Retention Rate: ${params.retentionRate}%`,
+    `AOV: $${params.aov}`,
+    `Biggest Challenge: ${sanitized || "Not specified"}`,
+    "",
+    `Traditional ROI: ${Math.round(params.traditionalRoi)}%`,
+    `AI Model ROI: ${Math.round(params.aiRoi)}%`,
+    `Additional Profit with AI: +$${Math.round(params.additionalProfit).toLocaleString()}/mo`,
+  ];
+  const text = encodeURIComponent(lines.join("\n"));
+  const url = `https://wa.me/201007292223?text=${text}`;
+  try {
+    const parsed = new URL(url);
+    if (parsed.protocol !== "https:" || parsed.hostname !== "wa.me") return null;
+    return url;
+  } catch {
+    return null;
+  }
+};
 
 const FinancialImpact = () => {
   const [adSpend, setAdSpend] = useState(10000);
@@ -88,7 +129,7 @@ const FinancialImpact = () => {
                 <label className="text-sm text-muted-foreground block mb-2">Biggest Challenge</label>
                 <textarea
                   value={biggestChallenge}
-                  onChange={(e) => setBiggestChallenge(e.target.value.slice(0, 500))}
+                  onChange={(e) => setBiggestChallenge(e.target.value.replace(ALLOWED_CHARS_REGEX, '').slice(0, MAX_CHALLENGE_LENGTH))}
                   placeholder="e.g. High CAC, low retention, scaling issues..."
                   className="w-full h-20 rounded-lg border border-input bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring resize-none"
                 />
@@ -96,22 +137,14 @@ const FinancialImpact = () => {
 
               <button
                 onClick={() => {
-                  const lines = [
-                    "New AI Growth Assessment:",
-                    "",
-                    `Monthly Ad Spend: $${adSpend.toLocaleString()}`,
-                    `Conversion Rate: ${conversionRate}%`,
-                    `CAC: $${cac}`,
-                    `Retention Rate: ${retentionRate}%`,
-                    `AOV: $${aov}`,
-                    `Biggest Challenge: ${biggestChallenge || "Not specified"}`,
-                    "",
-                    `Traditional ROI: ${Math.round(results.traditional.roi)}%`,
-                    `AI Model ROI: ${Math.round(results.ai.roi)}%`,
-                    `Additional Profit with AI: +$${Math.round(results.ai.profit - results.traditional.profit).toLocaleString()}/mo`,
-                  ];
-                  const text = encodeURIComponent(lines.join("\n"));
-                  window.open(`https://wa.me/201007292223?text=${text}`, "_blank");
+                  const url = buildWhatsAppUrl({
+                    adSpend, conversionRate, cac, retentionRate, aov,
+                    challenge: biggestChallenge,
+                    traditionalRoi: results.traditional.roi,
+                    aiRoi: results.ai.roi,
+                    additionalProfit: results.ai.profit - results.traditional.profit,
+                  });
+                  if (url) window.open(url, "_blank", "noopener,noreferrer");
                 }}
                 className="cta-button w-full inline-flex items-center justify-center gap-2 text-base"
               >
