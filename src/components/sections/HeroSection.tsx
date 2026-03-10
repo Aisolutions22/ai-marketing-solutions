@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, lazy, Suspense } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Bot, User, Zap, Clock, BarChart3, Target, RefreshCw } from "lucide-react";
-import ParticleBackground from "@/components/ParticleBackground";
+
+const ParticleBackground = lazy(() => import("@/components/ParticleBackground"));
 
 const comparisons = [
   { traditional: "Manual optimization", ai: "AI decision loops", iconT: User, iconA: Bot },
