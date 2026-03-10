@@ -55,8 +55,7 @@ const ParticleBackground = () => {
     canvas.addEventListener("mousemove", handleMouse);
 
     const animate = () => {
-      const w = canvas.offsetWidth;
-      const h = canvas.offsetHeight;
+      const { w, h } = sizeRef.current;
       ctx.clearRect(0, 0, w, h);
 
       const particles = particlesRef.current;
