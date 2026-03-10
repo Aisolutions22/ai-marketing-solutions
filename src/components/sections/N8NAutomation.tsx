@@ -40,11 +40,9 @@ const FlowParticle = ({ index, total, cx, cy, tx, ty }: { index: number; total: 
   const delay = (index / total) * 4;
   return (
     <motion.circle
-      cx={tx}
-      cy={ty}
       r={2}
       fill="hsl(217 91% 60% / 0.45)"
-      initial={{ opacity: 0 }}
+      initial={{ cx: tx, cy: ty, r: 2, opacity: 0 }}
       animate={{
         cx: [tx, cx],
         cy: [ty, cy],
