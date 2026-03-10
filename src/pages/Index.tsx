@@ -51,7 +51,7 @@ const Index = () => {
             onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
             className="flex items-center gap-3 group"
           >
-            <img src={logoImg} alt="AI Solutions logo" className="h-10 w-auto" />
+            <img src={logoImg} alt="AI Solutions logo" className="h-10 w-auto" width="46" height="40" />
             <div className="hidden sm:block">
               <p className="font-display text-base font-bold gradient-text leading-tight">
                 Ai Solutions
