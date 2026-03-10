@@ -34,23 +34,36 @@ const ParticleBackground = () => {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const resize = () => {
+    const applySize = (w: number, h: number) => {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      const w = canvas.offsetWidth;
-      const h = canvas.offsetHeight;
       canvas.width = w * dpr;
       canvas.height = h * dpr;
-      ctx.scale(dpr, dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       sizeRef.current = { w, h };
       initParticles(w, h);
     };
 
-    resize();
-    window.addEventListener("resize", resize);
+    // Use ResizeObserver to avoid offsetWidth/offsetHeight forced reflow
+    const ro = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const { width, height } = entry.contentRect;
+        if (width > 0 && height > 0) {
+          applySize(width, height);
+        }
+      }
+    });
+    ro.observe(canvas);
+
+    // Cache bounding rect, update only on scroll/resize
+    let cachedRect = canvas.getBoundingClientRect();
+    const updateRect = () => {
+      cachedRect = canvas.getBoundingClientRect();
+    };
+    window.addEventListener("scroll", updateRect, { passive: true });
+    window.addEventListener("resize", updateRect, { passive: true });
 
     const handleMouse = (e: MouseEvent) => {
-      const rect = canvas.getBoundingClientRect();
-      mouseRef.current = { x: e.clientX - rect.left, y: e.clientY - rect.top };
+      mouseRef.current = { x: e.clientX - cachedRect.left, y: e.clientY - cachedRect.top };
     };
     canvas.addEventListener("mousemove", handleMouse);
 
@@ -68,13 +81,11 @@ const ParticleBackground = () => {
         if (p.x < 0 || p.x > w) p.vx *= -1;
         if (p.y < 0 || p.y > h) p.vy *= -1;
 
-        // Draw particle
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fillStyle = `hsla(217, 91%, 60%, ${p.opacity})`;
         ctx.fill();
 
-        // Connect nearby particles
         for (let j = i + 1; j < particles.length; j++) {
           const p2 = particles[j];
           const dx = p.x - p2.x;
@@ -90,7 +101,6 @@ const ParticleBackground = () => {
           }
         }
 
-        // Mouse interaction
         const mx = mouseRef.current.x;
         const my = mouseRef.current.y;
         const mdx = p.x - mx;
@@ -113,7 +123,9 @@ const ParticleBackground = () => {
 
     return () => {
       cancelAnimationFrame(animFrameRef.current);
-      window.removeEventListener("resize", resize);
+      ro.disconnect();
+      window.removeEventListener("scroll", updateRect);
+      window.removeEventListener("resize", updateRect);
       canvas.removeEventListener("mousemove", handleMouse);
     };
   }, [initParticles]);
