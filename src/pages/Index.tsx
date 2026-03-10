@@ -1,14 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import HeroSection from "@/components/sections/HeroSection";
-import KPIDashboard from "@/components/sections/KPIDashboard";
-import CustomerJourney from "@/components/sections/CustomerJourney";
-import AIAgentsSystem from "@/components/sections/AIAgentsSystem";
-import N8NAutomation from "@/components/sections/N8NAutomation";
-import ClientOnboarding from "@/components/sections/ClientOnboarding";
-import FinancialImpact from "@/components/sections/FinancialImpact";
-import FinalCTA from "@/components/sections/FinalCTA";
+import logoImg from "@/assets/logo.png";
+
+const KPIDashboard = lazy(() => import("@/components/sections/KPIDashboard"));
+const CustomerJourney = lazy(() => import("@/components/sections/CustomerJourney"));
+const AIAgentsSystem = lazy(() => import("@/components/sections/AIAgentsSystem"));
+const N8NAutomation = lazy(() => import("@/components/sections/N8NAutomation"));
+const ClientOnboarding = lazy(() => import("@/components/sections/ClientOnboarding"));
+const FinancialImpact = lazy(() => import("@/components/sections/FinancialImpact"));
+const FinalCTA = lazy(() => import("@/components/sections/FinalCTA"));
 import logoImg from "@/assets/logo.png";
 
 const navLinks = [
