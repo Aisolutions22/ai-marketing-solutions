@@ -18,7 +18,7 @@ const HeroSection = () => {
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
       {/* Animated particle background */}
-      <ParticleBackground />
+      <Suspense fallback={null}><ParticleBackground /></Suspense>
 
       {/* Gradient overlays */}
       <div className="absolute inset-0 bg-gradient-to-b from-primary/8 via-background/80 to-background pointer-events-none" />
