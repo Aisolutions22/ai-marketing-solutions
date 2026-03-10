@@ -40,11 +40,9 @@ const FlowParticle = ({ index, total, cx, cy, tx, ty }: { index: number; total: 
   const delay = (index / total) * 4;
   return (
     <motion.circle
-      cx={tx}
-      cy={ty}
       r={2}
       fill="hsl(217 91% 60% / 0.45)"
-      initial={{ opacity: 0 }}
+      initial={{ cx: tx, cy: ty, r: 2, opacity: 0 }}
       animate={{
         cx: [tx, cx],
         cy: [ty, cy],
@@ -127,8 +125,9 @@ const N8NAutomation = () => {
 
             {/* Subtle center glow disc */}
             <motion.circle
-              cx={350} cy={350} r={70}
+              cx={350} cy={350}
               fill="url(#centerGlow)"
+              initial={{ cx: 350, cy: 350, r: 70, opacity: 0.6 }}
               animate={{ r: [65, 75, 65], opacity: [0.6, 1, 0.6] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
             />
@@ -276,8 +275,9 @@ const N8NAutomation = () => {
               </radialGradient>
             </defs>
             <motion.circle
-              cx={175} cy={175} r={35}
+              cx={175} cy={175}
               fill="url(#centerGlowMobile)"
+              initial={{ cx: 175, cy: 175, r: 35, opacity: 0.5 }}
               animate={{ r: [32, 38, 32], opacity: [0.5, 0.8, 0.5] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
             />
