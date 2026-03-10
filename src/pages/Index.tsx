@@ -1,3 +1,6 @@
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X } from "lucide-react";
 import HeroSection from "@/components/sections/HeroSection";
 import KPIDashboard from "@/components/sections/KPIDashboard";
 import CustomerJourney from "@/components/sections/CustomerJourney";
@@ -6,42 +9,131 @@ import N8NAutomation from "@/components/sections/N8NAutomation";
 import ClientOnboarding from "@/components/sections/ClientOnboarding";
 import FinancialImpact from "@/components/sections/FinancialImpact";
 import FinalCTA from "@/components/sections/FinalCTA";
+import logoImg from "@/assets/logo.png";
+
+const navLinks = [
+  { label: "Features", href: "#kpi" },
+  { label: "System", href: "#agents" },
+  { label: "Automation", href: "#automation" },
+  { label: "Contact", href: "#contact" },
+];
+
+const scrollTo = (href: string) => {
+  const el = document.querySelector(href);
+  if (el) el.scrollIntoView({ behavior: "smooth" });
+};
 
 const Index = () => {
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 glass-strong border-b border-glass-border">
-        <div className="max-w-7xl mx-auto px-4 py-4 text-center">
-          <h1 className="font-display text-2xl md:text-3xl font-bold gradient-text">
-            Ai Solutions
-          </h1>
-          <p className="text-muted-foreground text-xs md:text-sm tracking-widest uppercase">
-            Ai marketing N8N automation project
-          </p>
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+          scrolled
+            ? "glass-strong border-b border-glass-border shadow-lg shadow-background/50"
+            : "bg-transparent border-b border-transparent"
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
+          {/* Logo */}
+          <a
+            href="#"
+            onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+            className="flex items-center gap-3 group"
+          >
+            <img src={logoImg} alt="AI Solutions logo" className="h-10 w-auto" />
+            <div className="hidden sm:block">
+              <p className="font-display text-base font-bold gradient-text leading-tight">
+                Ai Solutions
+              </p>
+              <p className="text-muted-foreground text-[10px] tracking-widest uppercase leading-tight">
+                Smart AI Agents
+              </p>
+            </div>
+          </a>
+
+          {/* Desktop Nav */}
+          <nav className="hidden md:flex items-center gap-1">
+            {navLinks.map((link) => (
+              <button
+                key={link.href}
+                onClick={() => scrollTo(link.href)}
+                className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200 rounded-lg hover:bg-muted/50"
+              >
+                {link.label}
+              </button>
+            ))}
+            <button
+              onClick={() => scrollTo("#contact")}
+              className="ml-2 px-5 py-2 text-sm font-display font-semibold rounded-lg bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 transition-all duration-200"
+            >
+              Get Started
+            </button>
+          </nav>
+
+          {/* Mobile menu button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-2 text-muted-foreground hover:text-foreground transition-colors"
+          >
+            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
         </div>
+
+        {/* Mobile Nav */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              className="md:hidden glass-strong border-t border-glass-border overflow-hidden"
+            >
+              <div className="px-4 py-4 flex flex-col gap-1">
+                {navLinks.map((link) => (
+                  <button
+                    key={link.href}
+                    onClick={() => { scrollTo(link.href); setMobileMenuOpen(false); }}
+                    className="px-4 py-3 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted/50 text-left"
+                  >
+                    {link.label}
+                  </button>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </header>
 
       {/* Spacer for fixed header */}
-      <div className="h-24" />
+      <div className="h-16" />
 
       <HeroSection />
-      <KPIDashboard />
+      <div id="kpi"><KPIDashboard /></div>
       <CustomerJourney />
-      <AIAgentsSystem />
-      <N8NAutomation />
+      <div id="agents"><AIAgentsSystem /></div>
+      <div id="automation"><N8NAutomation /></div>
       <ClientOnboarding />
       <FinancialImpact />
-      <FinalCTA />
+      <div id="contact"><FinalCTA /></div>
 
       {/* Footer */}
-      <footer className="glass-strong border-t border-glass-border py-8 text-center">
-        <p className="text-muted-foreground text-sm">© 2026 Ai Solutions — AI N8N Automation
-          <span className="font-display text-primary">Ai Solutions</span> — AI Marketing & Automation
+      <footer className="glass-strong border-t border-glass-border py-10 text-center">
+        <p className="text-muted-foreground text-sm">
+          © 2026 <span className="font-display text-primary">Ai Solutions</span> — AI Marketing & Automation
         </p>
       </footer>
-    </div>);
-
+    </div>
+  );
 };
 
 export default Index;
