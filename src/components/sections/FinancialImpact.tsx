@@ -120,6 +120,7 @@ const FinancialImpact = () => {
                     step={input.step}
                     value={input.value}
                     onChange={(e) => input.set(Number(e.target.value))}
+                    aria-label={input.label}
                     className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-primary"
                   />
                 </div>
