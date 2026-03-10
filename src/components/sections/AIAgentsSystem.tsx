@@ -53,7 +53,7 @@ const AIAgentsSystem = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="section-title">AI Marketing Agents</h2>
+          <h2 className="section-title">AI Marketing Automation Agents</h2>
           <p className="section-subtitle">Master Brain — Your AI Marketing Department</p>
         </motion.div>
 

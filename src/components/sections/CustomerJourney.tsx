@@ -84,7 +84,7 @@ const CustomerJourney = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="section-title">Customer Journey Intelligence</h2>
+          <h2 className="section-title">E-commerce Scaling — Customer Journey Intelligence</h2>
           <p className="section-subtitle">Click each stage to explore AI-powered insights</p>
         </motion.div>
 

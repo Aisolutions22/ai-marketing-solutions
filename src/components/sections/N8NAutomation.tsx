@@ -95,7 +95,7 @@ const N8NAutomation = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="section-title">N8N Automation Engine</h2>
+          <h2 className="section-title">N8N Automation for E-commerce Scaling</h2>
           <p className="section-subtitle">Every channel, every platform — seamlessly connected through intelligent AI automation that runs your entire business on autopilot</p>
         </motion.div>
 

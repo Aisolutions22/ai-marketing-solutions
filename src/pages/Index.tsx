@@ -1,6 +1,6 @@
 import { useState, useEffect, lazy, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Facebook } from "lucide-react";
 import HeroSection from "@/components/sections/HeroSection";
 import logoImg from "@/assets/logo.png";
 
@@ -12,14 +12,22 @@ const ClientOnboarding = lazy(() => import("@/components/sections/ClientOnboardi
 const FinancialImpact = lazy(() => import("@/components/sections/FinancialImpact"));
 const FinalCTA = lazy(() => import("@/components/sections/FinalCTA"));
 
+const PORTFOLIO_URL = "https://aisolutions-portfolio.lovable.app/";
+const FACEBOOK_URL = "https://www.facebook.com/share/1Cd3zk5ZU7/";
+const WHATSAPP_URL = "https://wa.me/201007292223";
+
 const navLinks = [
+  { label: "Home", href: "#home" },
   { label: "Features", href: "#kpi" },
-  { label: "System", href: "#agents" },
-  { label: "Automation", href: "#automation" },
+  { label: "Portfolio", href: PORTFOLIO_URL, external: true },
   { label: "Contact", href: "#contact" },
 ];
 
 const scrollTo = (href: string) => {
+  if (href === "#home") {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    return;
+  }
   const el = document.querySelector(href);
   if (el) el.scrollIntoView({ behavior: "smooth" });
 };
@@ -44,12 +52,12 @@ const Index = () => {
             : "bg-transparent border-b border-transparent"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
           {/* Logo */}
           <a
             href="#"
             onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
-            className="flex items-center gap-3 group"
+            className="flex items-center gap-3 group shrink-0"
           >
             <img src={logoImg} alt="AI Solutions logo" className="h-10 w-auto" width="46" height="40" />
             <div>
@@ -64,21 +72,44 @@ const Index = () => {
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-1">
-            {navLinks.map((link) => (
-              <button
-                key={link.href}
-                onClick={() => scrollTo(link.href)}
-                className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200 rounded-lg hover:bg-muted/50"
-              >
-                {link.label}
-              </button>
-            ))}
-            <button
-              onClick={() => scrollTo("#contact")}
+            {navLinks.map((link) =>
+              (link as any).external ? (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200 rounded-lg hover:bg-muted/50"
+                >
+                  {link.label}
+                </a>
+              ) : (
+                <button
+                  key={link.href}
+                  onClick={() => scrollTo(link.href)}
+                  className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200 rounded-lg hover:bg-muted/50"
+                >
+                  {link.label}
+                </button>
+              )
+            )}
+            <a
+              href={FACEBOOK_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook"
+              className="p-2 text-muted-foreground hover:text-foreground transition-colors duration-200 rounded-lg hover:bg-muted/50"
+            >
+              <Facebook className="w-5 h-5" />
+            </a>
+            <a
+              href={PORTFOLIO_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className="ml-2 px-5 py-2 text-sm font-display font-semibold rounded-lg bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 transition-all duration-200"
             >
-              Get Started
-            </button>
+              View Our Work
+            </a>
           </nav>
 
           {/* Mobile menu button */}
@@ -101,20 +132,42 @@ const Index = () => {
               className="md:hidden glass-strong border-t border-glass-border overflow-hidden"
             >
               <div className="px-4 py-4 flex flex-col gap-1">
-                {navLinks.map((link) => (
-                  <a
-                    key={link.href}
-                    href={link.href}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setMobileMenuOpen(false);
-                      setTimeout(() => scrollTo(link.href), 300);
-                    }}
-                    className="px-4 py-3 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted/50 block"
-                  >
-                    {link.label}
-                  </a>
-                ))}
+                {navLinks.map((link) =>
+                  (link as any).external ? (
+                    <a
+                      key={link.href}
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="px-4 py-3 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted/50 block"
+                    >
+                      {link.label}
+                    </a>
+                  ) : (
+                    <a
+                      key={link.href}
+                      href={link.href}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setMobileMenuOpen(false);
+                        setTimeout(() => scrollTo(link.href), 300);
+                      }}
+                      className="px-4 py-3 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted/50 block"
+                    >
+                      {link.label}
+                    </a>
+                  )
+                )}
+                <a
+                  href={FACEBOOK_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="px-4 py-3 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted/50 flex items-center gap-2"
+                >
+                  <Facebook className="w-4 h-4" /> Facebook
+                </a>
               </div>
             </motion.div>
           )}
@@ -122,7 +175,7 @@ const Index = () => {
       </header>
 
       {/* Spacer for fixed header */}
-      <div className="h-16" />
+      <div className="h-16" id="home" />
 
       <HeroSection />
       <Suspense fallback={<div className="min-h-[200px]" />}>
@@ -136,10 +189,95 @@ const Index = () => {
       </Suspense>
 
       {/* Footer */}
-      <footer className="glass-strong border-t border-glass-border py-10 text-center">
-        <p className="text-muted-foreground text-sm">
-          © 2026 <span className="font-display text-primary">Ai Solutions</span> — AI Marketing & Automation
-        </p>
+      <footer className="glass-strong border-t border-glass-border">
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 lg:px-10 py-16">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
+            {/* Column 1: Logo & Bio */}
+            <div>
+              <div className="flex items-center gap-3 mb-4">
+                <img src={logoImg} alt="AI Solutions logo" className="h-10 w-auto" width="46" height="40" />
+                <p className="font-display text-base font-bold gradient-text">Ai Solutions</p>
+              </div>
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                We transform e-commerce businesses with AI-driven marketing automation, replacing traditional media buying with intelligent n8n workflows and autonomous AI agents.
+              </p>
+            </div>
+
+            {/* Column 2: Quick Links */}
+            <div>
+              <h4 className="font-display text-sm font-semibold text-foreground mb-4">Quick Links</h4>
+              <ul className="space-y-3">
+                <li>
+                  <a
+                    href={PORTFOLIO_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground text-sm hover:text-primary transition-colors"
+                  >
+                    Portfolio
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={FACEBOOK_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground text-sm hover:text-primary transition-colors flex items-center gap-2"
+                  >
+                    <Facebook className="w-4 h-4" /> Facebook
+                  </a>
+                </li>
+                <li>
+                  <button
+                    onClick={() => scrollTo("#kpi")}
+                    className="text-muted-foreground text-sm hover:text-primary transition-colors"
+                  >
+                    Features
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => scrollTo("#contact")}
+                    className="text-muted-foreground text-sm hover:text-primary transition-colors"
+                  >
+                    Contact
+                  </button>
+                </li>
+              </ul>
+            </div>
+
+            {/* Column 3: Contact Info */}
+            <div>
+              <h4 className="font-display text-sm font-semibold text-foreground mb-4">Contact Us</h4>
+              <ul className="space-y-3">
+                <li>
+                  <a
+                    href={WHATSAPP_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground text-sm hover:text-primary transition-colors"
+                  >
+                    WhatsApp: +20 100 729 2223
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="mailto:sales@aisolutions22.cloud"
+                    className="text-muted-foreground text-sm hover:text-primary transition-colors"
+                  >
+                    Email: sales@aisolutions22.cloud
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="border-t border-glass-border mt-10 pt-8 text-center">
+            <p className="text-muted-foreground text-sm">
+              © 2026 <span className="font-display text-primary">Ai Solutions</span> — AI Marketing & Automation
+            </p>
+          </div>
+        </div>
       </footer>
     </div>
   );
