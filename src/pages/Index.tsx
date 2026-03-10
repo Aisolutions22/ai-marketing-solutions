@@ -11,7 +11,6 @@ const N8NAutomation = lazy(() => import("@/components/sections/N8NAutomation"));
 const ClientOnboarding = lazy(() => import("@/components/sections/ClientOnboarding"));
 const FinancialImpact = lazy(() => import("@/components/sections/FinancialImpact"));
 const FinalCTA = lazy(() => import("@/components/sections/FinalCTA"));
-import logoImg from "@/assets/logo.png";
 
 const navLinks = [
   { label: "Features", href: "#kpi" },
