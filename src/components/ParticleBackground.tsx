@@ -36,10 +36,13 @@ const ParticleBackground = () => {
 
     const resize = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = canvas.offsetWidth * dpr;
-      canvas.height = canvas.offsetHeight * dpr;
+      const w = canvas.offsetWidth;
+      const h = canvas.offsetHeight;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
       ctx.scale(dpr, dpr);
-      initParticles(canvas.offsetWidth, canvas.offsetHeight);
+      sizeRef.current = { w, h };
+      initParticles(w, h);
     };
 
     resize();
