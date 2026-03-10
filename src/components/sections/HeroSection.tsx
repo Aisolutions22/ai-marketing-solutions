@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, lazy, Suspense } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Bot, User, Zap, Clock, BarChart3, Target, RefreshCw } from "lucide-react";
-import ParticleBackground from "@/components/ParticleBackground";
+
+const ParticleBackground = lazy(() => import("@/components/ParticleBackground"));
 
 const comparisons = [
   { traditional: "Manual optimization", ai: "AI decision loops", iconT: User, iconA: Bot },
@@ -17,7 +18,7 @@ const HeroSection = () => {
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
       {/* Animated particle background */}
-      <ParticleBackground />
+      <Suspense fallback={null}><ParticleBackground /></Suspense>
 
       {/* Gradient overlays */}
       <div className="absolute inset-0 bg-gradient-to-b from-primary/8 via-background/80 to-background pointer-events-none" />
@@ -40,14 +41,11 @@ const HeroSection = () => {
           </motion.span>
         </h1>
 
-        <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        <p
           className="text-muted-foreground text-xl md:text-2xl mb-14 font-body max-w-2xl mx-auto"
         >
           We don't manage ads. We engineer revenue systems.
-        </motion.p>
+        </p>
 
         {/* Toggle Switch */}
         <motion.div
