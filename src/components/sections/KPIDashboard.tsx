@@ -75,6 +75,7 @@ const KPIDashboard = () => {
                 <metric.icon className={`w-8 h-8 ${metric.color}`} />
                 <button
                   onClick={() => setActiveTooltip(activeTooltip === i ? null : i)}
+                  aria-label={`More info about ${metric.label}`}
                   className="text-muted-foreground hover:text-foreground transition-colors"
                 >
                   <Info className="w-4 h-4" />

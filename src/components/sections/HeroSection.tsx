@@ -64,6 +64,7 @@ const HeroSection = () => {
           </span>
           <button
             onClick={() => setIsAI(!isAI)}
+            aria-label={isAI ? "Switch to Traditional view" : "Switch to AI Growth Engine view"}
             className={`relative w-20 h-10 rounded-full transition-all duration-500 ${
               isAI ? "bg-primary neon-glow-blue" : "bg-muted"
             }`}
