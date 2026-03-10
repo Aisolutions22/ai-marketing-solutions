@@ -54,11 +54,12 @@ const ParticleBackground = () => {
     });
     ro.observe(canvas);
 
-    // Cache bounding rect, update only on scroll/resize
-    let cachedRect = canvas.getBoundingClientRect();
+    // Cache bounding rect, update only on scroll/resize — defer initial call to avoid forced reflow
+    let cachedRect: DOMRect | null = null;
     const updateRect = () => {
       cachedRect = canvas.getBoundingClientRect();
     };
+    requestAnimationFrame(updateRect);
     window.addEventListener("scroll", updateRect, { passive: true });
     window.addEventListener("resize", updateRect, { passive: true });
 
