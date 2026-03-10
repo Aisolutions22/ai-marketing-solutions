@@ -14,6 +14,7 @@ const ParticleBackground = () => {
   const particlesRef = useRef<Particle[]>([]);
   const animFrameRef = useRef<number>(0);
   const mouseRef = useRef({ x: -1000, y: -1000 });
+  const sizeRef = useRef({ w: 0, h: 0 });
 
   const initParticles = useCallback((w: number, h: number) => {
     const count = Math.min(Math.floor((w * h) / 12000), 80);
