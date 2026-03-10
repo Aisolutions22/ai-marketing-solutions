@@ -143,8 +143,8 @@ const KPIDashboard = () => {
                 }}
                 formatter={(value: number) => [`$${value.toLocaleString()}`, ""]}
               />
-              <Area type="monotone" dataKey="before" stroke="hsl(215 20% 55%)" fill="url(#gradBefore)" strokeWidth={2} name="Before AI" />
-              <Area type="monotone" dataKey="after" stroke="hsl(217 91% 60%)" fill="url(#gradAfter)" strokeWidth={2} name="After AI" />
+              <Area type="monotone" dataKey="before" stroke="hsl(215 20% 55%)" fill="url(#gradBefore)" strokeWidth={2} name="Before AI" dot={false} activeDot={{ r: 4 }} />
+              <Area type="monotone" dataKey="after" stroke="hsl(217 91% 60%)" fill="url(#gradAfter)" strokeWidth={2} name="After AI" dot={false} activeDot={{ r: 4 }} />
             </AreaChart>
           </ResponsiveContainer>
         </motion.div>
