@@ -14,6 +14,7 @@ const ParticleBackground = () => {
   const particlesRef = useRef<Particle[]>([]);
   const animFrameRef = useRef<number>(0);
   const mouseRef = useRef({ x: -1000, y: -1000 });
+  const sizeRef = useRef({ w: 0, h: 0 });
 
   const initParticles = useCallback((w: number, h: number) => {
     const count = Math.min(Math.floor((w * h) / 12000), 80);
@@ -35,10 +36,13 @@ const ParticleBackground = () => {
 
     const resize = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = canvas.offsetWidth * dpr;
-      canvas.height = canvas.offsetHeight * dpr;
+      const w = canvas.offsetWidth;
+      const h = canvas.offsetHeight;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
       ctx.scale(dpr, dpr);
-      initParticles(canvas.offsetWidth, canvas.offsetHeight);
+      sizeRef.current = { w, h };
+      initParticles(w, h);
     };
 
     resize();
@@ -51,8 +55,7 @@ const ParticleBackground = () => {
     canvas.addEventListener("mousemove", handleMouse);
 
     const animate = () => {
-      const w = canvas.offsetWidth;
-      const h = canvas.offsetHeight;
+      const { w, h } = sizeRef.current;
       ctx.clearRect(0, 0, w, h);
 
       const particles = particlesRef.current;
