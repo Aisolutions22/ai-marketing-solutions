@@ -119,13 +119,15 @@ const Index = () => {
       <div className="h-16" />
 
       <HeroSection />
-      <div id="kpi"><KPIDashboard /></div>
-      <CustomerJourney />
-      <div id="agents"><AIAgentsSystem /></div>
-      <div id="automation"><N8NAutomation /></div>
-      <ClientOnboarding />
-      <FinancialImpact />
-      <div id="contact"><FinalCTA /></div>
+      <Suspense fallback={<div className="min-h-[200px]" />}>
+        <div id="kpi"><KPIDashboard /></div>
+        <CustomerJourney />
+        <div id="agents"><AIAgentsSystem /></div>
+        <div id="automation"><N8NAutomation /></div>
+        <ClientOnboarding />
+        <FinancialImpact />
+        <div id="contact"><FinalCTA /></div>
+      </Suspense>
 
       {/* Footer */}
       <footer className="glass-strong border-t border-glass-border py-10 text-center">
