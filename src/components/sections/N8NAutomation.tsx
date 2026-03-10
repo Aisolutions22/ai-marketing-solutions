@@ -275,8 +275,9 @@ const N8NAutomation = () => {
               </radialGradient>
             </defs>
             <motion.circle
-              cx={175} cy={175} r={35}
+              cx={175} cy={175}
               fill="url(#centerGlowMobile)"
+              initial={{ cx: 175, cy: 175, r: 35, opacity: 0.5 }}
               animate={{ r: [32, 38, 32], opacity: [0.5, 0.8, 0.5] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
             />
