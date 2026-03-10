@@ -125,8 +125,9 @@ const N8NAutomation = () => {
 
             {/* Subtle center glow disc */}
             <motion.circle
-              cx={350} cy={350} r={70}
+              cx={350} cy={350}
               fill="url(#centerGlow)"
+              initial={{ cx: 350, cy: 350, r: 70, opacity: 0.6 }}
               animate={{ r: [65, 75, 65], opacity: [0.6, 1, 0.6] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
             />
