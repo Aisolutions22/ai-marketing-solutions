@@ -38,7 +38,7 @@ const HeroSection = () => {
           >
             to AI Growth Engine
           </motion.span>
-        </motion.h1>
+        </h1>
 
         <motion.p
           initial={{ opacity: 0, y: 30 }}
