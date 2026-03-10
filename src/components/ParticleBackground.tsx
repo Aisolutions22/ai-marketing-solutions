@@ -64,6 +64,7 @@ const ParticleBackground = () => {
     window.addEventListener("resize", updateRect, { passive: true });
 
     const handleMouse = (e: MouseEvent) => {
+      if (!cachedRect) return;
       mouseRef.current = { x: e.clientX - cachedRect.left, y: e.clientY - cachedRect.top };
     };
     canvas.addEventListener("mousemove", handleMouse);
