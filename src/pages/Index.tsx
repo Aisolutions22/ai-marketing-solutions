@@ -52,11 +52,11 @@ const Index = () => {
             className="flex items-center gap-3 group"
           >
             <img src={logoImg} alt="AI Solutions logo" className="h-10 w-auto" width="46" height="40" />
-            <div className="hidden sm:block">
-              <p className="font-display text-base font-bold gradient-text leading-tight">
+            <div>
+              <p className="font-display text-sm sm:text-base font-bold gradient-text leading-tight">
                 Ai Solutions
               </p>
-              <p className="text-muted-foreground text-[10px] tracking-widest uppercase leading-tight">
+              <p className="text-muted-foreground text-[9px] sm:text-[10px] tracking-widest uppercase leading-tight">
                 Smart AI Agents
               </p>
             </div>
