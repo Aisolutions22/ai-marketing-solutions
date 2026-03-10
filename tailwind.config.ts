@@ -23,7 +23,7 @@ export default {
   				'sans-serif'
   			],
   			mono: [
-  				'IBM Plex Mono',
+  				'Space Mono',
   				'ui-monospace',
   				'SFMono-Regular',
   				'Menlo',
@@ -34,7 +34,7 @@ export default {
   				'monospace'
   			],
   			sans: [
-  				'Montserrat',
+  				'Inter',
   				'ui-sans-serif',
   				'system-ui',
   				'-apple-system',
@@ -47,7 +47,7 @@ export default {
   				'sans-serif'
   			],
   			serif: [
-  				'Cormorant Garamond',
+  				'Lora',
   				'ui-serif',
   				'Georgia',
   				'Cambria',
@@ -135,7 +135,7 @@ export default {
   					opacity: '0.5'
   				}
   			},
-  			'float': {
+  			float: {
   				'0%, 100%': {
   					transform: 'translateY(0)'
   				},
@@ -195,7 +195,7 @@ export default {
   			'accordion-down': 'accordion-down 0.2s ease-out',
   			'accordion-up': 'accordion-up 0.2s ease-out',
   			'pulse-neon': 'pulse-neon 2s ease-in-out infinite',
-  			'float': 'float 3s ease-in-out infinite',
+  			float: 'float 3s ease-in-out infinite',
   			'glow-pulse': 'glow-pulse 2s ease-in-out infinite',
   			'flow-line': 'flow-line 2s linear infinite',
   			'count-up': 'count-up 0.6s ease-out',
