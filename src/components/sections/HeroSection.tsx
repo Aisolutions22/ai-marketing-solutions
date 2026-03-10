@@ -1,8 +1,10 @@
 import { useState, lazy, Suspense } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Bot, User, Zap, Clock, BarChart3, Target, RefreshCw } from "lucide-react";
+import { ArrowRight, Bot, User, Zap, Clock, BarChart3, Target, RefreshCw, ExternalLink } from "lucide-react";
 
 const ParticleBackground = lazy(() => import("@/components/ParticleBackground"));
+
+const PORTFOLIO_URL = "https://aisolutions-portfolio.lovable.app/";
 
 const comparisons = [
   { traditional: "Manual optimization", ai: "AI decision loops", iconT: User, iconA: Bot },
@@ -26,10 +28,8 @@ const HeroSection = () => {
       <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-accent/8 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="section-container relative z-10 text-center">
-        <h1
-          className="section-title text-4xl md:text-6xl lg:text-7xl mb-6"
-        >
-          From Traditional Media Buying
+        <h1 className="section-title text-4xl md:text-6xl lg:text-7xl mb-6">
+          AI Marketing Automation
           <br />
           <motion.span
             initial={{ opacity: 0, y: 20 }}
@@ -37,13 +37,11 @@ const HeroSection = () => {
             transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
             className="neon-text-blue"
           >
-            to AI Growth Engine
+            E-commerce Scaling Engine
           </motion.span>
         </h1>
 
-        <p
-          className="text-muted-foreground text-xl md:text-2xl mb-14 font-body max-w-2xl mx-auto"
-        >
+        <p className="text-muted-foreground text-xl md:text-2xl mb-14 font-body max-w-2xl mx-auto">
           We don't manage ads. We engineer revenue systems.
         </p>
 
@@ -107,10 +105,18 @@ const HeroSection = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5 }}
-          className="mt-16"
+          className="mt-16 flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <a href="#kpi" className="cta-button inline-flex items-center gap-2">
             See the Results <ArrowRight className="w-5 h-5" />
+          </a>
+          <a
+            href={PORTFOLIO_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-8 py-4 rounded-xl text-lg font-display font-bold border border-primary/30 text-primary hover:bg-primary/10 transition-all duration-300"
+          >
+            View Our Work <ExternalLink className="w-5 h-5" />
           </a>
         </motion.div>
       </div>

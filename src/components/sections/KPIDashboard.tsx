@@ -56,8 +56,8 @@ const KPIDashboard = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="section-title">Live KPI Dashboard</h2>
-          <p className="section-subtitle">Real-time metrics from our AI-powered campaigns</p>
+          <h2 className="section-title">Automated Dashboards & Live KPIs</h2>
+          <p className="section-subtitle">Real-time metrics from our AI marketing automation campaigns</p>
         </motion.div>
 
         {/* Metric Cards */}
