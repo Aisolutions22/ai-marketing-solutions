@@ -102,13 +102,18 @@ const Index = () => {
             >
               <div className="px-4 py-4 flex flex-col gap-1">
                 {navLinks.map((link) => (
-                  <button
+                  <a
                     key={link.href}
-                    onClick={() => { scrollTo(link.href); setMobileMenuOpen(false); }}
-                    className="px-4 py-3 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted/50 text-left"
+                    href={link.href}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setMobileMenuOpen(false);
+                      setTimeout(() => scrollTo(link.href), 300);
+                    }}
+                    className="px-4 py-3 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-muted/50 block"
                   >
                     {link.label}
-                  </button>
+                  </a>
                 ))}
               </div>
             </motion.div>
