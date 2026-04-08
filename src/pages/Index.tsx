@@ -204,7 +204,7 @@ const Index = () => {
 
             {/* Column 2: Quick Links */}
             <div>
-              <h4 className="font-display text-sm font-semibold text-foreground mb-4">Quick Links</h4>
+              <h3 className="font-display text-sm font-semibold text-foreground mb-4">Quick Links</h3>
               <ul className="space-y-3">
                 <li>
                   <a
@@ -247,7 +247,7 @@ const Index = () => {
 
             {/* Column 3: Contact Info */}
             <div>
-              <h4 className="font-display text-sm font-semibold text-foreground mb-4">Contact Us</h4>
+              <h3 className="font-display text-sm font-semibold text-foreground mb-4">Contact Us</h3>
               <ul className="space-y-3">
                 <li>
                   <a
