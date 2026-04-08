@@ -1,5 +1,6 @@
-import { useState, useEffect, lazy, Suspense } from "react";
+import { useState, useEffect, lazy } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import LazySection from "@/components/LazySection";
 import { Menu, X, Facebook } from "lucide-react";
 import HeroSection from "@/components/sections/HeroSection";
 import logoImg from "@/assets/logo.png";
