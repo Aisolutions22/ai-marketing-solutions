@@ -1,5 +1,6 @@
-import { useState, useEffect, lazy, Suspense } from "react";
+import { useState, useEffect, lazy } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import LazySection from "@/components/LazySection";
 import { Menu, X, Facebook } from "lucide-react";
 import HeroSection from "@/components/sections/HeroSection";
 import logoImg from "@/assets/logo.png";
@@ -178,15 +179,13 @@ const Index = () => {
       <div className="h-16" id="home" />
 
       <HeroSection />
-      <Suspense fallback={<div className="min-h-[200px]" />}>
-        <div id="kpi"><KPIDashboard /></div>
-        <CustomerJourney />
-        <div id="agents"><AIAgentsSystem /></div>
-        <div id="automation"><N8NAutomation /></div>
-        <ClientOnboarding />
-        <FinancialImpact />
-        <div id="contact"><FinalCTA /></div>
-      </Suspense>
+      <LazySection id="kpi" minHeight="400px"><KPIDashboard /></LazySection>
+      <LazySection minHeight="300px"><CustomerJourney /></LazySection>
+      <LazySection id="agents" minHeight="300px"><AIAgentsSystem /></LazySection>
+      <LazySection id="automation" minHeight="300px"><N8NAutomation /></LazySection>
+      <LazySection minHeight="300px"><ClientOnboarding /></LazySection>
+      <LazySection minHeight="300px"><FinancialImpact /></LazySection>
+      <LazySection id="contact" minHeight="300px"><FinalCTA /></LazySection>
 
       {/* Footer */}
       <footer className="glass-strong border-t border-glass-border">
