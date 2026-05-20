@@ -60,7 +60,14 @@ const Index = () => {
             onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
             className="flex items-center gap-3 group shrink-0"
           >
-            <img src={logoImg} alt="AI Solutions logo" className="h-10 w-auto" width="46" height="40" />
+            <img
+              src={logoImg}
+              alt="AI Solutions logo"
+              className="h-10 w-auto"
+              width="46"
+              height="40"
+              fetchPriority="high"
+            />
             <div>
               <p className="font-display text-sm sm:text-base font-bold gradient-text leading-tight">
                 Ai Solutions
@@ -194,7 +201,14 @@ const Index = () => {
             {/* Column 1: Logo & Bio */}
             <div>
               <div className="flex items-center gap-3 mb-4">
-                <img src={logoImg} alt="AI Solutions logo" className="h-10 w-auto" width="46" height="40" />
+            <img
+              src={logoImg}
+              alt="AI Solutions logo"
+              className="h-10 w-auto"
+              width="46"
+              height="40"
+              fetchPriority="high"
+            />
                 <p className="font-display text-base font-bold gradient-text">Ai Solutions</p>
               </div>
               <p className="text-muted-foreground text-sm leading-relaxed">
