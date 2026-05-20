@@ -1,0 +1,13 @@
+# Ai Solutions
+
+> AI marketing automation agency that replaces traditional media buying with intelligent n8n workflows, autonomous AI agents, and live KPI dashboards for e-commerce brands.
+
+Ai Solutions engineers revenue systems for e-commerce: AI-driven ad optimization, automated customer journeys, retention workflows, and 24/7 AI agents — measured through live dashboards instead of weekly reports.
+
+## Pages
+
+- [Home](/): Overview of the AI marketing automation platform, KPI dashboard, customer journey, AI agents, n8n automation, onboarding, and financial impact.
+
+## Optional
+
+- [Portfolio](https://aisolutions-portfolio.lovable.app/): Selected client work and case studies.

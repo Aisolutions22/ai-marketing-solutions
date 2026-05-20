@@ -12,3 +12,6 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+Sitemap: https://ai-marketing-solutions.lovable.app/sitemap.xml
+
