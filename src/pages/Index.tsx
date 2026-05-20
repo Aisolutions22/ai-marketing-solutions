@@ -66,7 +66,7 @@ const Index = () => {
               className="h-10 w-auto"
               width="46"
               height="40"
-              fetchpriority="high"
+              fetchPriority="high"
             />
             <div>
               <p className="font-display text-sm sm:text-base font-bold gradient-text leading-tight">
