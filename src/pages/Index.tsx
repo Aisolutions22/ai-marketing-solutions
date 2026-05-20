@@ -201,7 +201,14 @@ const Index = () => {
             {/* Column 1: Logo & Bio */}
             <div>
               <div className="flex items-center gap-3 mb-4">
-                <img src={logoImg} alt="AI Solutions logo" className="h-10 w-auto" width="46" height="40" />
+            <img
+              src={logoImg}
+              alt="AI Solutions logo"
+              className="h-10 w-auto"
+              width="46"
+              height="40"
+              fetchPriority="high"
+            />
                 <p className="font-display text-base font-bold gradient-text">Ai Solutions</p>
               </div>
               <p className="text-muted-foreground text-sm leading-relaxed">
